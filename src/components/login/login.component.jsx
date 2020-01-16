@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Button } from '@material-ui/core';
 import { useFormFields } from '../../libs/hooksLibs';
+import './login.styles.scss'
 
 function Login(props) {
 
@@ -37,9 +38,11 @@ function Login(props) {
         <Form.Group controlId="checkbox">
             <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Button variant="dark" className="submit-button" type="submit">
-            Submit
+        <div className="submit-button">
+        <Button variant="contained" type="submit">
+            Login
         </Button>
+        </div>
       </Form>
     </div>
   )

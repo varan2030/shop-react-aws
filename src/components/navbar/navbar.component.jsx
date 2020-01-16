@@ -1,15 +1,15 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import { Home } from '@material-ui/icons';
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 
-function Navbar(props) {
+import './navbar.styles.scss';
 
+function Navbar(props) {
 
   const handleClickToHomePage = () => {
     props.history.push('/');
@@ -23,13 +23,18 @@ function Navbar(props) {
     <div >
       <AppBar position="static">
         <Toolbar className="navigation">
-          <IconButton onClick={handleClickToHomePage} className="nav-icon" color="inherit" aria-label="menu">
+          <Grid  container
+            direction="row"
+            justify="space-between"
+            alignItems="center">
+          <IconButton onClick={handleClickToHomePage} className="nav-item" aria-label="menu">
           <Home />
           </IconButton>
-          <Typography  onClick={handleClickToHomePage} color="inherit" variant="h6" className="nav-icon">
+          <Typography  onClick={handleClickToHomePage} className="nav-item" variant="h6">
             Split
           </Typography>
-          <Button onClick={handleClickToLoginPage} color="inherit">Login / Signup</Button>
+          <Button className="nav-item nav-button" onClick={handleClickToLoginPage}>Login / Signup</Button>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>
