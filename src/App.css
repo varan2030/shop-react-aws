@@ -1,3 +1,9 @@
-.App {
-  text-align: center;
+.container {
+  display: block;
+}
+
+.top-line {
+  height: 20px;
+  widows: 100%;
+  background-color: darkred;
 }
