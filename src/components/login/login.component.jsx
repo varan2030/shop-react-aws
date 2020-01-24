@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Button } from '@material-ui/core';
 import { useFormFields } from '../../libs/hooksLibs';
 import './login.styles.scss'
+import { Auth } from 'aws-amplify';
 
 function Login(props) {
-
+  // const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: ""
   })
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
-    alert(fields.email, fields.password)
+
+		// setIsLoading(true);
+
+		try {
+			await Auth.signIn(fields.email, fields.password);
+      props.history.push('/');
+		} catch (e) {
+			console.log(e.message);
+			// setIsLoading(false);
+    }
   }
 
   return (

@@ -8,8 +8,9 @@ import { Button, Grid } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 
 import './navbar.styles.scss';
+import { Auth } from 'aws-amplify';
 
-function Navbar(props) {
+function Navbar({appProps, ...props}) {
 
   const handleClickToHomePage = () => {
     props.history.push('/');
@@ -18,6 +19,16 @@ function Navbar(props) {
   const handleClickToLoginPage = () => {
     props.history.push('/login');
   };
+
+  const handleClickToSignUpPage = () => {
+    props.history.push('/signup');
+  }
+
+  async function handleClickSignOutPage () {
+    await Auth.signOut();
+		appProps.isAuthenticated = false;
+		props.history.push("/");
+  }
 
   return (
     <div >
@@ -33,7 +44,18 @@ function Navbar(props) {
           <Typography  onClick={handleClickToHomePage} className="nav-item" variant="h6">
             Split
           </Typography>
-          <Button className="nav-item nav-button" onClick={handleClickToLoginPage}>Login / Signup</Button>
+          <div>
+            {appProps.isAuthenticated ? 
+            (<>
+              <Button className="nav-item nav-button" onClick={handleClickSignOutPage}>Sign out</Button>
+            </>) : 
+            (<>
+            <Button className="nav-item nav-button" onClick={handleClickToLoginPage}>Login</Button>
+            <Button className="nav-item nav-button" onClick={handleClickToSignUpPage}>Sign up</Button>
+            </>)
+          }
+
+          </div>
           </Grid>
         </Toolbar>
       </AppBar>

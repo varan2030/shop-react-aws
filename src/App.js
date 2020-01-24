@@ -1,26 +1,66 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import Navbar from './components/navbar/navbar.component'
-import HomePage from './pages/home-page/home-page.component';
-import LoginSignUpPage from './pages/login-signup-page/login-signup-page.component';
-import { Container } from '@material-ui/core';
 
-function App() {
+import { Auth } from "aws-amplify";
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.action'
+import Routes from './Routes';
+// import { createStructuredSelector } from 'reselect';
+// import { selectCurrentUser } from './redux/user/user.selectors';
+
+function App(props) {
+ 
+  const {setCurrentUser } = props;
+
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+
+  useEffect(() => {
+		onLoad();
+		Auth.currentAuthenticatedUser().then((session) => {
+      console.log(session)
+      setCurrentUser({
+        id: session.pool.clientId,
+        email: session.signInUserSession.idToken.payload.email,
+        role: session.signInUserSession.idToken.payload['cognito:groups'][0]
+      })
+    });
+    
+});
+
+	async function onLoad() {
+		try {
+      await Auth.currentSession();
+      userHasAuthenticated(true)
+		} catch (e) {
+			if (e !== "No current user") {
+				console.log(e);
+			}
+    }
+    setIsAuthenticating(false);
+	}
+
   return (
     <div className="App">
       <div className="top-line"></div>
-      <Navbar />
-      <Container className="container">
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/login" component={LoginSignUpPage} />
-        </Switch>
-      </Container>
-
+      <Navbar 
+        appProps = {{isAuthenticated, isAuthenticating}}
+      />
+      <Routes
+        appProps = {{isAuthenticated, isAuthenticating}}
+      />
     </div>
   );
 }
 
-export default App;
+// const mapStateToProps = createStructuredSelector({
+//   currentUser: selectCurrentUser
+// })
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(App);
