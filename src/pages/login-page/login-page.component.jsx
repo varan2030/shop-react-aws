@@ -5,7 +5,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import "./login-page.styles.scss";
 
 function LoginPage(props) {
-	console.log(props);
 	return (
 		<div>
 			<Container>

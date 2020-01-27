@@ -1,6 +1,6 @@
 import React from "react";
-import { Form } from "react-bootstrap";
-import { Button } from "@material-ui/core";
+import { Form, Row } from "react-bootstrap";
+import { Button, Grid, Link } from "@material-ui/core";
 import { useFormFields } from "../../libs/hooksLibs";
 import "./login.styles.scss";
 import { Auth } from "aws-amplify";
@@ -65,6 +65,20 @@ function Login(props) {
 					</Button>
 				</div>
 			</Form>
+			<Row className="forgot-password">
+				<Grid container>
+				<Grid item xs>
+				<Link href="/restore-password" variant="body2">
+					Forgot password?
+				</Link>
+				</Grid>
+				<Grid item>
+				<Link href="/signup" variant="body2">
+					{"Don't have an account? Sign Up"}
+				</Link>
+				</Grid>
+			</Grid>
+		  </Row>
 		</div>
 	);
 }
