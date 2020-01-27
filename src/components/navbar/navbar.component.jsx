@@ -1,66 +1,98 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import { Home } from '@material-ui/icons';
-import { Button, Grid } from '@material-ui/core';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import { Home } from "@material-ui/icons";
+import { Button, Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/user/user.action";
 
-import './navbar.styles.scss';
-import { Auth } from 'aws-amplify';
+import "./navbar.styles.scss";
+import { Auth } from "aws-amplify";
 
-function Navbar({appProps, ...props}) {
+function Navbar({ appProps, ...props }) {
+	const dispatch = useDispatch();
 
-  const handleClickToHomePage = () => {
-    props.history.push('/');
-  };
+	let isAuthenticated = false;
 
-  const handleClickToLoginPage = () => {
-    props.history.push('/login');
-  };
+	if (appProps.user !== null) isAuthenticated = true;
 
-  const handleClickToSignUpPage = () => {
-    props.history.push('/signup');
-  }
-
-  async function handleClickSignOutPage () {
-    await Auth.signOut();
-		appProps.isAuthenticated = false;
+	const handleClickToHomePage = () => {
 		props.history.push("/");
-  }
+	};
 
-  return (
-    <div >
-      <AppBar position="static">
-        <Toolbar className="navigation">
-          <Grid  container
-            direction="row"
-            justify="space-between"
-            alignItems="center">
-          <IconButton onClick={handleClickToHomePage} className="nav-item" aria-label="menu">
-          <Home />
-          </IconButton>
-          <Typography  onClick={handleClickToHomePage} className="nav-item" variant="h6">
-            Split
-          </Typography>
-          <div>
-            {appProps.isAuthenticated ? 
-            (<>
-              <Button className="nav-item nav-button" onClick={handleClickSignOutPage}>Sign out</Button>
-            </>) : 
-            (<>
-            <Button className="nav-item nav-button" onClick={handleClickToLoginPage}>Login</Button>
-            <Button className="nav-item nav-button" onClick={handleClickToSignUpPage}>Sign up</Button>
-            </>)
-          }
+	const handleClickToLoginPage = () => {
+		props.history.push("/login");
+	};
 
-          </div>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+	const handleClickToSignUpPage = () => {
+		props.history.push("/signup");
+	};
+
+	async function handleClickSignOutPage() {
+		await Auth.signOut();
+		dispatch(setCurrentUser(null));
+		props.history.push("/");
+	}
+
+	return (
+		<div>
+			<AppBar position="static">
+				<Toolbar className="navigation">
+					<Grid
+						container
+						direction="row"
+						justify="space-between"
+						alignItems="center"
+					>
+						<IconButton
+							onClick={handleClickToHomePage}
+							className="nav-item"
+							aria-label="menu"
+						>
+							<Home />
+						</IconButton>
+						<Typography
+							onClick={handleClickToHomePage}
+							className="nav-item"
+							variant="h6"
+						>
+							Split
+						</Typography>
+						<div>
+							{isAuthenticated ? (
+								<>
+									<Button
+										className="nav-item nav-button"
+										onClick={handleClickSignOutPage}
+									>
+										Sign out
+									</Button>
+								</>
+							) : (
+								<>
+									<Button
+										className="nav-item nav-button"
+										onClick={handleClickToLoginPage}
+									>
+										Login
+									</Button>
+									<Button
+										className="nav-item nav-button"
+										onClick={handleClickToSignUpPage}
+									>
+										Sign up
+									</Button>
+								</>
+							)}
+						</div>
+					</Grid>
+				</Toolbar>
+			</AppBar>
+		</div>
+	);
 }
 
 export default withRouter(Navbar);

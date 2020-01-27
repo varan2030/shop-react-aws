@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import './index.css';
-import App from './App';
+import "./index.css";
+import App from "./App";
 
-import {store, persistor} from './redux/store';
+import { store, persistor } from "./redux/store";
 
 import Amplify from "aws-amplify";
 import config from "./config";
@@ -28,7 +28,7 @@ Amplify.configure({
 	API: {
 		endpoints: [
 			{
-				name: "notes",
+				name: "users",
 				endpoint: config.apiGateway.URL,
 				region: config.apiGateway.REGION
 			}
@@ -37,13 +37,12 @@ Amplify.configure({
 });
 
 ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <PersistGate persistor={persistor}>
-                <App/>
-            </PersistGate>
-        </BrowserRouter>
-    </Provider>, 
-    document.getElementById('root')
+	<Provider store={store}>
+		<BrowserRouter>
+			<PersistGate persistor={persistor}>
+				<App />
+			</PersistGate>
+		</BrowserRouter>
+	</Provider>,
+	document.getElementById("root")
 );
-
