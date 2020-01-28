@@ -5,8 +5,6 @@ import { useFormFields } from "../../libs/hooksLibs";
 import "./signup.styles.scss";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../redux/user/user.action";
 
 function Signup(props) {
 	const [fields, handleFieldChange] = useFormFields({
@@ -16,9 +14,10 @@ function Signup(props) {
 		confirmPassword: "",
 		confirmationCode: ""
 	});
-	const dispatch = useDispatch();
 	const [validated, setValidated] = useState(false);
 	const [newUser, setNewUser] = useState(null);
+	const [errorMessage, handleErrorMessage] = useState("");
+
 
 	const handleSubmit = async (event) => {
 		const form = event.currentTarget;
@@ -34,16 +33,12 @@ function Signup(props) {
 				});
 				setNewUser(newUser);
 				console.log(newUser);
-			} catch (e) {
-				alert(e.message);
+			} catch (err) {
+				handleErrorMessage(err.message)
 			}
 		}
 		setValidated(true);
 	};
-
-	function validateConfirmationForm() {
-		return fields.confirmationCode.length > 0;
-	}
 
 	const handlePasswordValidation = () => {
 		if (
@@ -59,48 +54,10 @@ function Signup(props) {
 		return false;
 	};
 
-	async function handleConfirmationSubmit(event) {
-		event.preventDefault();
-
-		try {
-			await Auth.confirmSignUp(fields.email, fields.confirmationCode);
-			const newUser = await Auth.signIn(fields.email, fields.password);
-			dispatch(
-				setCurrentUser({
-					id: newUser.pool.clientId,
-					email: newUser.signInUserSession.idToken.payload.email
-				})
-			);
-			props.history.push("/");
-		} catch (e) {
-			alert(e.message);
-		}
-	}
-
 	function renderConfirmationForm() {
 		return (
 			<div>
-				<Form onSubmit={handleConfirmationSubmit}>
-					<Form.Group controlId="confirmationCode">
-						<Form.Label>Confirmation Code</Form.Label>
-						<Form.Control
-							autoFocus
-							onChange={handleFieldChange}
-							value={fields.confirmationCode}
-						/>
-						<p>Please check your email for the code.</p>
-					</Form.Group>
-					<div className="submit-button">
-						<Button
-							type="submit"
-							text="Verify"
-							variant="contained"
-							disabled={!validateConfirmationForm()}
-						>
-							Verify
-						</Button>
-					</div>
-				</Form>
+				<h5>Please check your email inbox for a verification link.</h5>
 			</div>
 		);
 	}
@@ -133,6 +90,7 @@ function Signup(props) {
 						<Form.Label>Password</Form.Label>
 						<Form.Control
 							type="password"
+							autoComplete="new-password"
 							value={fields.password}
 							onChange={handleFieldChange}
 							isValid={handlePasswordValidation()}
@@ -160,6 +118,14 @@ function Signup(props) {
 							Signup
 						</Button>
 					</div>
+					<div className='error-message'>
+                    {errorMessage ? 
+                    <>
+                    <p>
+                        {errorMessage}
+                    </p>
+                    </> : <></>}
+                </div>
 				</Form>
 			</div>
 		);

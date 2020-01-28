@@ -7,6 +7,8 @@ import { Button } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../redux/user/user.action";
 
 function RestorePassword(props) {
 	const [fields, handleFieldChange] = useFormFields({
@@ -16,18 +18,18 @@ function RestorePassword(props) {
 		confirmationCode: ""
 	});
 
-	console.log(fields);
+    const dispatch = useDispatch();
 	const [confirmedEmail, handleConfirmEmail] = useState(false);
-	const [validated, setValidated] = useState(false);
+    const [validated, setValidated] = useState(false);
+    const [errorMessage, handleErrorMessage] = useState("");
 
 	async function handleSubmit(event) {
 		event.preventDefault();
 		try {
-			const confirmedEmail = await Auth.forgotPassword(fields.email);
-			console.log(confirmedEmail);
+			await Auth.forgotPassword(fields.email);
 			handleConfirmEmail(true);
 		} catch (err) {
-			alert(err.message);
+			handleErrorMessage(err.message);
 		}
 	}
 
@@ -46,27 +48,32 @@ function RestorePassword(props) {
 		return false;
 	};
 
-	const handleResetPassword = async (event) => {
+	async function handleResetPassword (event) {
 		event.preventDefault();
 		try {
-			const confirmedChangedPasswordUser = await Auth.forgotPasswordSubmit({
-				username: fields.email,
-				code: fields.confirmationCode,
-				password: fields.password
-			});
-			console.log(confirmedChangedPasswordUser);
+            await Auth.forgotPasswordSubmit(fields.email, fields.confirmationCode, fields.password);
+            const newUser = await Auth.signIn(fields.email, fields.password);
+            dispatch(
+				setCurrentUser({
+					id: newUser.pool.clientId,
+					email: newUser.signInUserSession.idToken.payload.email
+				})
+            );
+            props.history.push("/");
+            console.log(newUser);
 		} catch (err) {
-			console.log(err);
+			handleErrorMessage(err.message);
 		}
 		setValidated(true);
-	};
+    };
+    
 
 	function renderEmail() {
 		return (
 			<Form onSubmit={handleSubmit} className="login">
 				<Form.Group controlId="email">
 					<Form.Label>
-						Enter your user account's verified email address and we will send
+						Enter your email address and we will send
 						you a password reset link.
 					</Form.Label>
 					<Form.Control
@@ -81,6 +88,14 @@ function RestorePassword(props) {
 						Send password reset email
 					</Button>
 				</div>
+                <div className='error-message'>
+                    {errorMessage ? 
+                    <>
+                    <p>
+                        {errorMessage}
+                    </p>
+                    </> : <></>}
+                </div>
 			</Form>
 		);
 	}
@@ -131,6 +146,14 @@ function RestorePassword(props) {
 						Verify
 					</Button>
 				</div>
+                <div className='error-message'>
+                    {errorMessage ? 
+                    <>
+                    <p>
+                        {errorMessage}
+                    </p>
+                    </> : <></>}
+                </div>
 			</Form>
 		);
 	}

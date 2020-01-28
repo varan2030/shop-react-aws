@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { Button, Grid, Link } from "@material-ui/core";
 import { useFormFields } from "../../libs/hooksLibs";
@@ -15,6 +15,8 @@ function Login(props) {
 		email: "",
 		password: ""
 	});
+	const [errorMessage, handleErrorMessage] = useState("");
+
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -29,8 +31,8 @@ function Login(props) {
 			};
 			dispatch(setCurrentUser(user));
 			props.history.push("/");
-		} catch (e) {
-			console.log(e.message);
+		} catch (err) {
+			handleErrorMessage(err.message)
 			// setIsLoading(false);
 		}
 	}
@@ -56,9 +58,9 @@ function Login(props) {
 						placeholder="Password"
 					/>
 				</Form.Group>
-				<Form.Group controlId="checkbox">
+				{/* <Form.Group controlId="checkbox">
 					<Form.Check type="checkbox" label="Remember me" />
-				</Form.Group>
+				</Form.Group> */}
 				<div className="submit-button">
 					<Button variant="contained" type="submit">
 						Login
@@ -79,6 +81,14 @@ function Login(props) {
 					</Grid>
 				</Grid>
 			</Row>
+			<div className='error-message'>
+                    {errorMessage ? 
+                    <>
+                    <p>
+                        {errorMessage}
+                    </p>
+                    </> : <></>}
+                </div>
 		</div>
 	);
 }
