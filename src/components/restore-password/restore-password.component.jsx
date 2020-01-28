@@ -16,6 +16,7 @@ function RestorePassword(props) {
 		confirmationCode: ""
 	});
 
+	console.log(fields);
 	const [confirmedEmail, handleConfirmEmail] = useState(false);
 	const [validated, setValidated] = useState(false);
 
@@ -48,11 +49,11 @@ function RestorePassword(props) {
 	const handleResetPassword = async (event) => {
 		event.preventDefault();
 		try {
-			const confirmedChangedPasswordUser = Auth.forgotPasswordSubmit(
-				fields.email,
-				fields.confirmationCode,
-				fields.password
-			);
+			const confirmedChangedPasswordUser = await Auth.forgotPasswordSubmit({
+				username: fields.email,
+				code: fields.confirmationCode,
+				password: fields.password
+			});
 			console.log(confirmedChangedPasswordUser);
 		} catch (err) {
 			console.log(err);
@@ -102,6 +103,7 @@ function RestorePassword(props) {
 					<Form.Label>New Password</Form.Label>
 					<Form.Control
 						type="password"
+						autoComplete="new-password"
 						value={fields.password}
 						onChange={handleFieldChange}
 						isValid={handlePasswordValidation()}
