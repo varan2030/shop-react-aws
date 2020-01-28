@@ -67,18 +67,18 @@ function Login(props) {
 			</Form>
 			<Row className="forgot-password">
 				<Grid container>
-				<Grid item xs>
-				<Link href="/restore-password" variant="body2">
-					Forgot password?
-				</Link>
+					<Grid item xs>
+						<Link href="/restore-password" variant="body2">
+							Forgot password?
+						</Link>
+					</Grid>
+					<Grid item>
+						<Link href="/signup" variant="body2">
+							{"Don't have an account? Sign Up"}
+						</Link>
+					</Grid>
 				</Grid>
-				<Grid item>
-				<Link href="/signup" variant="body2">
-					{"Don't have an account? Sign Up"}
-				</Link>
-				</Grid>
-			</Grid>
-		  </Row>
+			</Row>
 		</div>
 	);
 }
