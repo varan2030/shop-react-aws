@@ -40,8 +40,8 @@ function App(props) {
 	return (
 		<div className="App">
 			<div className="top-line"></div>
-			<Navbar appProps={{ user }} />
-			<Routes appProps={{ user }} />
+			<Navbar user={user} {...props} />
+			<Routes user={user} {...props} />
 		</div>
 	);
 }

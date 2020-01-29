@@ -3,12 +3,12 @@ import React from "react";
 import "./restore-password.styles.scss";
 import { useFormFields } from "../../libs/hooksLibs";
 import { Form } from "react-bootstrap";
-import { Button } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user/user.action";
+import CustomButton from "../custom-button/custom-button.component";
 
 function RestorePassword(props) {
 	const [fields, handleFieldChange] = useFormFields({
@@ -85,11 +85,9 @@ function RestorePassword(props) {
 						placeholder="Enter email"
 					/>
 				</Form.Group>
-				<div className="submit-button">
-					<Button variant="contained" type="submit">
+					<CustomButton variant="contained" type="submit">
 						Send password reset email
-					</Button>
-				</div>
+					</CustomButton>
 				<div className="error-message">
 					{errorMessage ? (
 						<>
@@ -140,15 +138,13 @@ function RestorePassword(props) {
 						required
 					/>
 				</Form.Group>
-				<div className="submit-button">
-					<Button
+					<CustomButton
 						variant="contained"
 						type="submit"
 						disabled={!handlePasswordValidation()}
 					>
 						Verify
-					</Button>
-				</div>
+					</CustomButton>
 				<div className="error-message">
 					{errorMessage ? (
 						<>

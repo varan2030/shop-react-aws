@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Form, Row } from "react-bootstrap";
-import { Button, Grid, Link } from "@material-ui/core";
+import { Grid, Link } from "@material-ui/core";
 import { useFormFields } from "../../libs/hooksLibs";
 import "./login.styles.scss";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user/user.action";
+import CustomButton from "../custom-button/custom-button.component";
 
 function Login(props) {
 	const dispatch = useDispatch();
@@ -55,10 +56,10 @@ function Login(props) {
 						placeholder="Password"
 					/>
 				</Form.Group>
-				<div className="submit-button">
-					<Button variant="contained" type="submit">
+				<div>
+					<CustomButton className="submit-button" variant="contained" type="submit">
 						Login
-					</Button>
+					</CustomButton>
 				</div>
 			</Form>
 			<Row className="forgot-password">

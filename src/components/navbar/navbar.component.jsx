@@ -4,38 +4,22 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import { Home } from "@material-ui/icons";
-import { Button, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../redux/user/user.action";
 
 import "./navbar.styles.scss";
-import { Auth } from "aws-amplify";
+import SignOutMenu from "../sign-out-menu/sign-out-menu.component";
+import SignInUpMenu from "../sign-in-up-menu/sign-in-up-menu.component";
 
-function Navbar({ appProps, ...props }) {
-	const dispatch = useDispatch();
+function Navbar({ user, ...props }) {
 
 	let isAuthenticated = false;
 
-	if (appProps.user !== null) isAuthenticated = true;
+	if (user !== null) isAuthenticated = true;
 
 	const handleClickToHomePage = () => {
 		props.history.push("/");
 	};
-
-	const handleClickToLoginPage = () => {
-		props.history.push("/login");
-	};
-
-	const handleClickToSignUpPage = () => {
-		props.history.push("/signup");
-	};
-
-	async function handleClickSignOutPage() {
-		await Auth.signOut();
-		dispatch(setCurrentUser(null));
-		props.history.push("/");
-	}
 
 	return (
 		<div>
@@ -61,33 +45,11 @@ function Navbar({ appProps, ...props }) {
 						>
 							Split
 						</Typography>
-						<div>
 							{isAuthenticated ? (
-								<>
-									<Button
-										className="nav-item nav-button"
-										onClick={handleClickSignOutPage}
-									>
-										Sign out
-									</Button>
-								</>
+								<SignOutMenu {...props}/>
 							) : (
-								<>
-									<Button
-										className="nav-item nav-button"
-										onClick={handleClickToLoginPage}
-									>
-										Login
-									</Button>
-									<Button
-										className="nav-item nav-button"
-										onClick={handleClickToSignUpPage}
-									>
-										Sign up
-									</Button>
-								</>
+								<SignInUpMenu {...props}/>
 							)}
-						</div>
 					</Grid>
 				</Toolbar>
 			</AppBar>

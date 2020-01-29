@@ -9,10 +9,12 @@ import AuthenticatedRoute from "./components/auth/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/auth/UnauthenticatedRoute";
 import NotFound from "./pages/not-found/not-found-page.component";
 import RestorePasswordPage from "./pages/restore-password-page/restore-password-page.component";
+import CartPage from "./pages/cart-page/cart-page.component";
+import AccountPage from "./pages/account-page/account-page.component";
 
-export default function Routes({ appProps }) {
+export default function Routes({ user, ...props }) {
 	let isAuthenticated = false;
-	if (appProps.user !== null) isAuthenticated = true;
+	if (user !== null) isAuthenticated = true;
 	return (
 		<Container className="container">
 			<Switch>
@@ -33,6 +35,18 @@ export default function Routes({ appProps }) {
 					exact
 					path="/restore-password"
 					component={RestorePasswordPage}
+					appProps={{ isAuthenticated }}
+				/>
+				<Route
+					exact
+					path="/cart"
+					component={CartPage}
+					// appProps={{ isAuthenticated }}
+				/>
+				<AuthenticatedRoute
+					exact
+					path="/account"
+					component={AccountPage}
 					appProps={{ isAuthenticated }}
 				/>
 				<Route component={NotFound} />

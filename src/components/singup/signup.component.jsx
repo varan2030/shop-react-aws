@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { Button } from "@material-ui/core";
 import { useFormFields } from "../../libs/hooksLibs";
 import "./signup.styles.scss";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
+import CustomButton from "../custom-button/custom-button.component";
 
 function Signup(props) {
 	const [fields, handleFieldChange] = useFormFields({
@@ -108,15 +108,13 @@ function Signup(props) {
 							required
 						/>
 					</Form.Group>
-					<div className="submit-button">
-						<Button
+						<CustomButton
 							variant="contained"
 							type="submit"
 							disabled={!handlePasswordValidation()}
 						>
 							Signup
-						</Button>
-					</div>
+						</CustomButton>
 					<div className="error-message">
 						{errorMessage ? (
 							<>
