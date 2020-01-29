@@ -4,9 +4,9 @@ import './sign-in-up-menu.styles.scss';
 import { withRouter } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import NavItem from "../nav-item/nav-item.component";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 function SignInUpMenu (props) {
@@ -32,21 +32,23 @@ function SignInUpMenu (props) {
                     onClick={handleClickCartPage}
                     title="Cart"
                 >
-                    <AddShoppingCartIcon></AddShoppingCartIcon>	
+                    <ShoppingCartIcon></ShoppingCartIcon>	
                 </NavItem>
                 <NavItem
                     className="auth-nav-item"
                     onClick={handleClickToLoginPage}
                     title="Login"
                 >
-                    <AccountCircleIcon></AccountCircleIcon>
+                    <ExitToAppIcon></ExitToAppIcon>
+
                 </NavItem>
                 <NavItem
                     className="auth-nav-item"
                     onClick={handleClickToSignUpPage}
                     title="Sign Up"
                 >
-                    <MeetingRoomIcon></MeetingRoomIcon>
+                    <PersonAddIcon></PersonAddIcon>
+
                 </NavItem>
             </Row>
         </div>

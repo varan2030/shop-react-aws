@@ -2,11 +2,14 @@
   display: block;
 }
 
-.top-line {
-  height: 20px;
-  widows: 100%;
-  background-color: #24292e;
+/* .navigation-bar{
+  position: fixed;
+  width: 100%;
 }
+
+.main-content {
+  margin-top: 150px;
+} */
 
 .App {
   font-family: 'Sriracha', cursive;

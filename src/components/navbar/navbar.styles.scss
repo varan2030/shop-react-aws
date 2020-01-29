@@ -2,9 +2,15 @@
     color: grey;
     cursor: pointer;
 }
-header > .navigation {
+.navigation {
     background-color: lightgrey;
 }
+
+.top-line {
+    height: 20px;
+    widows: 100%;
+    background-color: #24292e;
+  }
 
 button.nav-button {
    color: grey;

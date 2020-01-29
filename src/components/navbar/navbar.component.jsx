@@ -23,7 +23,8 @@ function Navbar({ user, ...props }) {
 
 	return (
 		<div>
-			<AppBar position="static">
+			<AppBar position="static" className="app-bar">
+			<div className="top-line"></div>
 				<Toolbar className="navigation">
 					<Grid
 						container

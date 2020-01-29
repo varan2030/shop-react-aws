@@ -3,8 +3,8 @@ import React from "react";
 import './sign-out-menu.styles.scss';
 import { withRouter } from "react-router-dom";
 import { Row } from "react-bootstrap";
-import NoMeetingRoomIcon from '@material-ui/icons/NoMeetingRoom';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import NavItem from "../nav-item/nav-item.component";
 import { Auth } from "aws-amplify";
@@ -35,11 +35,11 @@ function SignOutMenu (props) {
                 title="Cart"
                 onClick={handleClickCartPage}
             >
-                <AddShoppingCartIcon></AddShoppingCartIcon>	
+                <ShoppingCartIcon></ShoppingCartIcon>	
             </NavItem>
             <NavItem
                 className="auth-nav-item"
-                title="Account"
+                title="My account"
                 onClick={handleClickAccountPage}
             >
                 <AccountCircleIcon></AccountCircleIcon>	
@@ -49,7 +49,7 @@ function SignOutMenu (props) {
                 onClick={handleClickSignOutPage}
                 title="Sign out"
             >
-                <NoMeetingRoomIcon></NoMeetingRoomIcon>
+                <MeetingRoomIcon></MeetingRoomIcon>
             </NavItem>	
         </Row>
     )
