@@ -18,7 +18,6 @@ function Signup(props) {
 	const [newUser, setNewUser] = useState(null);
 	const [errorMessage, handleErrorMessage] = useState("");
 
-
 	const handleSubmit = async (event) => {
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
@@ -34,7 +33,7 @@ function Signup(props) {
 				setNewUser(newUser);
 				console.log(newUser);
 			} catch (err) {
-				handleErrorMessage(err.message)
+				handleErrorMessage(err.message);
 			}
 		}
 		setValidated(true);
@@ -118,14 +117,15 @@ function Signup(props) {
 							Signup
 						</Button>
 					</div>
-					<div className='error-message'>
-                    {errorMessage ? 
-                    <>
-                    <p>
-                        {errorMessage}
-                    </p>
-                    </> : <></>}
-                </div>
+					<div className="error-message">
+						{errorMessage ? (
+							<>
+								<p>{errorMessage}</p>
+							</>
+						) : (
+							<></>
+						)}
+					</div>
 				</Form>
 			</div>
 		);

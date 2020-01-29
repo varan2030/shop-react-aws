@@ -18,10 +18,10 @@ function RestorePassword(props) {
 		confirmationCode: ""
 	});
 
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const [confirmedEmail, handleConfirmEmail] = useState(false);
-    const [validated, setValidated] = useState(false);
-    const [errorMessage, handleErrorMessage] = useState("");
+	const [validated, setValidated] = useState(false);
+	const [errorMessage, handleErrorMessage] = useState("");
 
 	async function handleSubmit(event) {
 		event.preventDefault();
@@ -48,33 +48,35 @@ function RestorePassword(props) {
 		return false;
 	};
 
-	async function handleResetPassword (event) {
+	async function handleResetPassword(event) {
 		event.preventDefault();
 		try {
-            await Auth.forgotPasswordSubmit(fields.email, fields.confirmationCode, fields.password);
-            const newUser = await Auth.signIn(fields.email, fields.password);
-            dispatch(
+			await Auth.forgotPasswordSubmit(
+				fields.email,
+				fields.confirmationCode,
+				fields.password
+			);
+			const newUser = await Auth.signIn(fields.email, fields.password);
+			dispatch(
 				setCurrentUser({
 					id: newUser.pool.clientId,
 					email: newUser.signInUserSession.idToken.payload.email
 				})
-            );
-            props.history.push("/");
-            console.log(newUser);
+			);
+			props.history.push("/");
+			console.log(newUser);
 		} catch (err) {
 			handleErrorMessage(err.message);
 		}
 		setValidated(true);
-    };
-    
+	}
 
 	function renderEmail() {
 		return (
 			<Form onSubmit={handleSubmit} className="login">
 				<Form.Group controlId="email">
 					<Form.Label>
-						Enter your email address and we will send
-						you a password reset link.
+						Enter your email address and we will send you a password reset link.
 					</Form.Label>
 					<Form.Control
 						type="email"
@@ -88,14 +90,15 @@ function RestorePassword(props) {
 						Send password reset email
 					</Button>
 				</div>
-                <div className='error-message'>
-                    {errorMessage ? 
-                    <>
-                    <p>
-                        {errorMessage}
-                    </p>
-                    </> : <></>}
-                </div>
+				<div className="error-message">
+					{errorMessage ? (
+						<>
+							<p>{errorMessage}</p>
+						</>
+					) : (
+						<></>
+					)}
+				</div>
 			</Form>
 		);
 	}
@@ -146,14 +149,15 @@ function RestorePassword(props) {
 						Verify
 					</Button>
 				</div>
-                <div className='error-message'>
-                    {errorMessage ? 
-                    <>
-                    <p>
-                        {errorMessage}
-                    </p>
-                    </> : <></>}
-                </div>
+				<div className="error-message">
+					{errorMessage ? (
+						<>
+							<p>{errorMessage}</p>
+						</>
+					) : (
+						<></>
+					)}
+				</div>
 			</Form>
 		);
 	}

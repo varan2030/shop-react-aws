@@ -17,12 +17,9 @@ function Login(props) {
 	});
 	const [errorMessage, handleErrorMessage] = useState("");
 
-
 	async function handleSubmit(event) {
 		event.preventDefault();
-
 		// setIsLoading(true);
-
 		try {
 			let newUser = await Auth.signIn(fields.email, fields.password);
 			let user = {
@@ -32,7 +29,7 @@ function Login(props) {
 			dispatch(setCurrentUser(user));
 			props.history.push("/");
 		} catch (err) {
-			handleErrorMessage(err.message)
+			handleErrorMessage(err.message);
 			// setIsLoading(false);
 		}
 	}
@@ -58,9 +55,6 @@ function Login(props) {
 						placeholder="Password"
 					/>
 				</Form.Group>
-				{/* <Form.Group controlId="checkbox">
-					<Form.Check type="checkbox" label="Remember me" />
-				</Form.Group> */}
 				<div className="submit-button">
 					<Button variant="contained" type="submit">
 						Login
@@ -81,14 +75,15 @@ function Login(props) {
 					</Grid>
 				</Grid>
 			</Row>
-			<div className='error-message'>
-                    {errorMessage ? 
-                    <>
-                    <p>
-                        {errorMessage}
-                    </p>
-                    </> : <></>}
-                </div>
+			<div className="error-message">
+				{errorMessage ? (
+					<>
+						<p>{errorMessage}</p>
+					</>
+				) : (
+					<></>
+				)}
+			</div>
 		</div>
 	);
 }
