@@ -12,7 +12,6 @@ import SignOutMenu from "../sign-out-menu/sign-out-menu.component";
 import SignInUpMenu from "../sign-in-up-menu/sign-in-up-menu.component";
 
 function Navbar({ user, ...props }) {
-
 	let isAuthenticated = false;
 
 	if (user !== null) isAuthenticated = true;
@@ -22,9 +21,9 @@ function Navbar({ user, ...props }) {
 	};
 
 	return (
-		<div>
+		<div className="nav-menu">
 			<AppBar position="static" className="app-bar">
-			<div className="top-line"></div>
+				<div className="top-line"></div>
 				<Toolbar className="navigation">
 					<Grid
 						container
@@ -46,11 +45,11 @@ function Navbar({ user, ...props }) {
 						>
 							Split
 						</Typography>
-							{isAuthenticated ? (
-								<SignOutMenu {...props}/>
-							) : (
-								<SignInUpMenu {...props}/>
-							)}
+						{isAuthenticated ? (
+							<SignOutMenu {...props} />
+						) : (
+							<SignInUpMenu {...props} />
+						)}
 					</Grid>
 				</Toolbar>
 			</AppBar>

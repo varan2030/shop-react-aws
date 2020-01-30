@@ -7,15 +7,16 @@ import { Auth } from "aws-amplify";
 import { setCurrentUser } from "./redux/user/user.action";
 import Routes from "./Routes";
 import { useDispatch, useSelector } from "react-redux";
+import { Container } from "react-bootstrap";
 
 function App(props) {
 	const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.currentUser);
+	const user = useSelector((state) => state.user.currentUser);
 
 	useEffect(() => {
-    onLoad();
+		onLoad();
 		if (user === null) {
-      let currentUser
+			let currentUser;
 			Auth.currentAuthenticatedUser().then((session) => {
 				currentUser = {
 					id: session.pool.clientId,
@@ -29,7 +30,7 @@ function App(props) {
 
 	async function onLoad() {
 		try {
-      await Auth.currentSession();
+			await Auth.currentSession();
 		} catch (e) {
 			if (e !== "No current user") {
 				console.log(e);
@@ -39,12 +40,10 @@ function App(props) {
 
 	return (
 		<div className="App">
-			<span className="navigation-bar">
 			<Navbar user={user} {...props} />
-			</span>
-			<span className="main-content">
-			<Routes user={user} {...props} />
-			</span>
+			<Container className="container">
+				<Routes user={user} {...props} />
+			</Container>
 		</div>
 	);
 }

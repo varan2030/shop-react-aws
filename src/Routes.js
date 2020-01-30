@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Container } from "@material-ui/core";
 
+import "./Routes.styles.scss";
 import HomePage from "./pages/home-page/home-page.component";
 import LoginPage from "./pages/login-page/login-page.component";
 import SignUpPage from "./pages/sign-up-page/sign-up-page.component";
@@ -16,41 +16,39 @@ export default function Routes({ user, ...props }) {
 	let isAuthenticated = false;
 	if (user !== null) isAuthenticated = true;
 	return (
-		<Container className="container">
-			<Switch>
-				<Route exact path="/" component={HomePage} appProps={isAuthenticated} />
-				<UnauthenticatedRoute
-					exact
-					path="/login"
-					component={LoginPage}
-					appProps={{ isAuthenticated }}
-				/>
-				<UnauthenticatedRoute
-					exact
-					path="/signup"
-					component={SignUpPage}
-					appProps={{ isAuthenticated }}
-				/>
-				<UnauthenticatedRoute
-					exact
-					path="/restore-password"
-					component={RestorePasswordPage}
-					appProps={{ isAuthenticated }}
-				/>
-				<Route
-					exact
-					path="/cart"
-					component={CartPage}
-					// appProps={{ isAuthenticated }}
-				/>
-				<AuthenticatedRoute
-					exact
-					path="/account"
-					component={AccountPage}
-					appProps={{ isAuthenticated }}
-				/>
-				<Route component={NotFound} />
-			</Switch>
-		</Container>
+		<Switch>
+			<Route exact path="/" component={HomePage} appProps={isAuthenticated} />
+			<UnauthenticatedRoute
+				exact
+				path="/login"
+				component={LoginPage}
+				appProps={{ isAuthenticated }}
+			/>
+			<UnauthenticatedRoute
+				exact
+				path="/signup"
+				component={SignUpPage}
+				appProps={{ isAuthenticated }}
+			/>
+			<UnauthenticatedRoute
+				exact
+				path="/restore-password"
+				component={RestorePasswordPage}
+				appProps={{ isAuthenticated }}
+			/>
+			<Route
+				exact
+				path="/cart"
+				component={CartPage}
+				// appProps={{ isAuthenticated }}
+			/>
+			<AuthenticatedRoute
+				exact
+				path="/account"
+				component={AccountPage}
+				appProps={{ isAuthenticated }}
+			/>
+			<Route component={NotFound} />
+		</Switch>
 	);
 }

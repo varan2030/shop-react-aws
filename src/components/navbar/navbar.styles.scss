@@ -1,17 +1,22 @@
 .nav-item {
-    color: grey;
-    cursor: pointer;
+	color: grey;
+	cursor: pointer;
 }
 .navigation {
-    background-color: lightgrey;
+	background-color: lightgrey;
 }
 
 .top-line {
-    height: 20px;
-    widows: 100%;
-    background-color: #24292e;
-  }
+	height: 20px;
+	widows: 100%;
+	background-color: #24292e;
+}
 
 button.nav-button {
-   color: grey;
+	color: grey;
+}
+
+.nav-menu {
+	position: fixed;
+	width: 100%;
 }

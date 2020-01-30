@@ -1,16 +1,11 @@
 .container {
-  display: block;
+	display: block;
 }
 
-/* .navigation-bar{
-  position: fixed;
-  width: 100%;
+.container {
+	padding-top: 100px;
 }
-
-.main-content {
-  margin-top: 150px;
-} */
 
 .App {
-  font-family: 'Sriracha', cursive;
+	font-family: "Sriracha", cursive;
 }
