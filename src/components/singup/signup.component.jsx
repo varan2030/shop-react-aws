@@ -63,69 +63,67 @@ function Signup(props) {
 
 	function renderForm() {
 		return (
-			<div>
-				<Form noValidate validated={validated} onSubmit={handleSubmit}>
-					<Form.Group controlId="name">
-						<Form.Label>Full Name</Form.Label>
-						<Form.Control
-							type="name"
-							value={fields.name}
-							onChange={handleFieldChange}
-							placeholder="Full Name"
-							required
-						/>
-					</Form.Group>
-					<Form.Group controlId="email">
-						<Form.Label>Email address</Form.Label>
-						<Form.Control
-							type="email"
-							value={fields.email}
-							onChange={handleFieldChange}
-							placeholder="Email"
-							required
-						/>
-					</Form.Group>
-					<Form.Group controlId="password">
-						<Form.Label>Password</Form.Label>
-						<Form.Control
-							type="password"
-							autoComplete="new-password"
-							value={fields.password}
-							onChange={handleFieldChange}
-							isValid={handlePasswordValidation()}
-							placeholder="Password"
-							required
-						/>
-					</Form.Group>
-					<Form.Group controlId="confirmPassword">
-						<Form.Label>Confirm Password</Form.Label>
-						<Form.Control
-							type="password"
-							value={fields.confirmPassword}
-							onChange={handleFieldChange}
-							isValid={handlePasswordValidation()}
-							placeholder="Confirm Password"
-							required
-						/>
-					</Form.Group>
-						<CustomButton
-							variant="contained"
-							type="submit"
-							disabled={!handlePasswordValidation()}
-						>
-							Signup
-						</CustomButton>
-					<div className="error-message">
-						{errorMessage ? (
-							<>
-								<p>{errorMessage}</p>
-							</>
-						) : (
-							<></>
-						)}
-					</div>
-				</Form>
-			</div>
+			<Form noValidate validated={validated} onSubmit={handleSubmit}>
+				<Form.Group controlId="name">
+					<Form.Label>Full Name</Form.Label>
+					<Form.Control
+						type="name"
+						value={fields.name}
+						onChange={handleFieldChange}
+						placeholder="Full Name"
+						required
+					/>
+				</Form.Group>
+				<Form.Group controlId="email">
+					<Form.Label>Email address</Form.Label>
+					<Form.Control
+						type="email"
+						value={fields.email}
+						onChange={handleFieldChange}
+						placeholder="Email"
+						required
+					/>
+				</Form.Group>
+				<Form.Group controlId="password">
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						type="password"
+						autoComplete="new-password"
+						value={fields.password}
+						onChange={handleFieldChange}
+						isValid={handlePasswordValidation()}
+						placeholder="Password"
+						required
+					/>
+				</Form.Group>
+				<Form.Group controlId="confirmPassword">
+					<Form.Label>Confirm Password</Form.Label>
+					<Form.Control
+						type="password"
+						value={fields.confirmPassword}
+						onChange={handleFieldChange}
+						isValid={handlePasswordValidation()}
+						placeholder="Confirm Password"
+						required
+					/>
+				</Form.Group>
+				<CustomButton
+					variant="contained"
+					type="submit"
+					disabled={!handlePasswordValidation()}
+				>
+					Signup
+				</CustomButton>
+				<div className="error-message">
+					{errorMessage ? (
+						<>
+							<p>{errorMessage}</p>
+						</>
+					) : (
+						<></>
+					)}
+				</div>
+			</Form>
 		);
 	}
 
