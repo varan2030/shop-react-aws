@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user/user.action";
 import CustomButton from "../custom-button/custom-button.component";
+import ErrorMessage from "../error-message/error-message.component";
 
 function RestorePassword(props) {
 	const [fields, handleFieldChange] = useFormFields({
@@ -85,9 +86,9 @@ function RestorePassword(props) {
 						placeholder="Enter email"
 					/>
 				</Form.Group>
-					<CustomButton variant="contained" type="submit">
-						Send password reset email
-					</CustomButton>
+				<CustomButton variant="contained" type="submit">
+					Send password reset email
+				</CustomButton>
 				<div className="error-message">
 					{errorMessage ? (
 						<>
@@ -138,22 +139,14 @@ function RestorePassword(props) {
 						required
 					/>
 				</Form.Group>
-					<CustomButton
-						variant="contained"
-						type="submit"
-						disabled={!handlePasswordValidation()}
-					>
-						Verify
-					</CustomButton>
-				<div className="error-message">
-					{errorMessage ? (
-						<>
-							<p>{errorMessage}</p>
-						</>
-					) : (
-						<></>
-					)}
-				</div>
+				<CustomButton
+					variant="contained"
+					type="submit"
+					disabled={!handlePasswordValidation()}
+				>
+					Verify
+				</CustomButton>
+				<ErrorMessage errorMessage={errorMessage} />
 			</Form>
 		);
 	}

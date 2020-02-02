@@ -8,7 +8,7 @@ import { setCurrentUser } from "./redux/user/user.action";
 import Routes from "./Routes";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
-import { Box, Paper } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 
 function App(props) {
 	const dispatch = useDispatch();
