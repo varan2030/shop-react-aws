@@ -20,7 +20,6 @@ function SignInUpMenu (props) {
 	};
 
     const handleClickCartPage = () => {
-        console.log('Cart')
         props.history.push("/cart")
     }
 

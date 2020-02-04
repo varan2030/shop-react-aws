@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { API } from "aws-amplify";
 
 function HomePage(props) {
+    useEffect(() => {
+		async function onLoad() {
+			
+			try {
+				const user = await loadNotes({userId: "eb56rhm0d1lke8dbeorfo04ud", userName: "uxvaran@gmail.com"});
+                console.log(user);
+			} catch (e) {
+				console.log(e);
+			}
+
+		}
+
+		onLoad();
+	}, [props.isAuthenticated]);
+
+	function loadNotes(user) {
+		return API.post("users", "/users", {
+			body: user
+		});
+	}
     return (
         <div>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor, lectus sit amet imperdiet suscipit, lacus tellus sodales felis, ac pulvinar nibh nibh sed magna. Duis aliquet leo risus, a auctor turpis interdum ut. Donec nec ullamcorper turpis. Nam nec arcu ac elit ullamcorper rhoncus. Cras tristique, est vel porttitor commodo, magna felis dignissim augue, vel aliquet enim est vel magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce dapibus eu mauris id cursus. Pellentesque dictum arcu sed est commodo, ac volutpat nisi lacinia. Integer accumsan accumsan euismod. Donec vitae nulla imperdiet, egestas nulla in, auctor leo. Ut vel ante eu arcu efficitur accumsan at finibus ligula.
