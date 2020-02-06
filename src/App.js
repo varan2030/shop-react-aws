@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import "./App.css";
 
 import Navbar from "./components/navbar/navbar.component";
-
-import { Auth } from "aws-amplify";
+import { withRouter } from "react-router-dom";
+import { Auth, API } from "aws-amplify";
 import { setCurrentUser } from "./redux/user/user.action";
 import Routes from "./Routes";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
-import { Paper } from "@material-ui/core";
+import Directory from "./components/directory/directory.component";
 
 function App(props) {
 	const dispatch = useDispatch();
@@ -19,6 +19,7 @@ function App(props) {
 		if (user === null) {
 			let currentUser;
 			Auth.currentAuthenticatedUser().then((session) => {
+				console.log(session.pool.clientId)
 				currentUser = {
 					id: session.pool.clientId,
 					email: session.signInUserSession.idToken.payload.email
@@ -33,9 +34,9 @@ function App(props) {
 	async function onLoad() {
 		try {
 			await Auth.currentSession();
-		} catch (e) {
-			if (e !== "No current user") {
-				console.log(e);
+		} catch (err) {
+			if (err !== "No current user") {
+				console.log(err);
 			}
 		}
 	}
@@ -43,7 +44,7 @@ function App(props) {
 	return (
 		<div className="App">
 			<Navbar user={user} {...props} />
-			<Paper elevation={4} className="directory" />
+			<Directory {...props}/>
 			<Container className="container">
 				<Routes user={user} {...props} />
 			</Container>
@@ -51,4 +52,4 @@ function App(props) {
 	);
 }
 
-export default App;
+export default withRouter(App);

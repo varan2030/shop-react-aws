@@ -1,13 +1,13 @@
 import React from "react";
 
 import './nav-item.styles.scss';
-import { MenuItem } from "@material-ui/core";
+import { MenuItem, Hidden } from "@material-ui/core";
 
 function NavItem({className, onClick, children, title, ...props}) {
     return (
-        <MenuItem className={`${className} menu-item`} onClick={onClick}>
+        <MenuItem className={`${className} menu-item`} onClick={onClick} {...props}>
             {children}
-            {title}
+            <Hidden only='xs'>{title}</Hidden>
         </MenuItem>
     )
 }

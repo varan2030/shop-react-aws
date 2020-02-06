@@ -17,7 +17,7 @@ export default function Routes({ user, ...props }) {
 	if (user !== null) isAuthenticated = true;
 	return (
 		<Switch>
-			<Route exact path="/" component={HomePage} appProps={isAuthenticated} />
+			<Route exact path="/" component={HomePage} appProps={isAuthenticated} {...props} />
 			<UnauthenticatedRoute
 				exact
 				path="/login"
