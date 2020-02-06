@@ -3,7 +3,7 @@ import "./App.css";
 
 import Navbar from "./components/navbar/navbar.component";
 import { withRouter } from "react-router-dom";
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 import { setCurrentUser } from "./redux/user/user.action";
 import Routes from "./Routes";
 import { useDispatch, useSelector } from "react-redux";

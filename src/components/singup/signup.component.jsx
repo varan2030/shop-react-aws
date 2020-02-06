@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useFormFields } from "../../libs/hooksLibs";
 import "./signup.styles.scss";
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import CustomButton from "../custom-button/custom-button.component";
 import ErrorMessage from "../error-message/error-message.component";
@@ -32,13 +32,22 @@ function Signup(props) {
 					password: fields.password
 				});
 				setNewUser(newUser);
-				console.log(newUser);
+				await createUser({
+					userName: fields.name,
+					userEmail: fields.email
+				})
 			} catch (err) {
 				handleErrorMessage(err.message);
 			}
 		}
 		setValidated(true);
 	};
+
+	const createUser =  (user) => {
+        return API.post('users', '/users', {
+				body: user
+			})
+	}
 
 	const handlePasswordValidation = () => {
 		if (
