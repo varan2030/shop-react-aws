@@ -5,6 +5,7 @@ import "./signup.styles.scss";
 import { Auth } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import CustomButton from "../custom-button/custom-button.component";
+import ErrorMessage from "../error-message/error-message.component";
 
 function Signup(props) {
 	const [fields, handleFieldChange] = useFormFields({
@@ -114,15 +115,7 @@ function Signup(props) {
 				>
 					Signup
 				</CustomButton>
-				<div className="error-message">
-					{errorMessage ? (
-						<>
-							<p>{errorMessage}</p>
-						</>
-					) : (
-						<></>
-					)}
-				</div>
+				<ErrorMessage errorMessage={errorMessage} />
 			</Form>
 		);
 	}

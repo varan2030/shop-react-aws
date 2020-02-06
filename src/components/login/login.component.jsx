@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user/user.action";
 import CustomButton from "../custom-button/custom-button.component";
+import ErrorMessage from "../error-message/error-message.component";
 
 function Login(props) {
 	const dispatch = useDispatch();
@@ -57,7 +58,11 @@ function Login(props) {
 					/>
 				</Form.Group>
 				<div>
-					<CustomButton className="submit-button" variant="contained" type="submit">
+					<CustomButton
+						className="submit-button"
+						variant="contained"
+						type="submit"
+					>
 						Login
 					</CustomButton>
 				</div>
@@ -76,15 +81,7 @@ function Login(props) {
 					</Grid>
 				</Grid>
 			</Row>
-			<div className="error-message">
-				{errorMessage ? (
-					<>
-						<p>{errorMessage}</p>
-					</>
-				) : (
-					<></>
-				)}
-			</div>
+			<ErrorMessage errorMessage={errorMessage} />
 		</div>
 	);
 }
