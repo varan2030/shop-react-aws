@@ -23,6 +23,7 @@ function App(props) {
 				currentUser = {
 					id: session.pool.clientId,
 					email: session.signInUserSession.idToken.payload.email
+
 					// role: session.signInUserSession.idToken.payload['cognito:groups'][0]
 				};
 				dispatch(setCurrentUser(currentUser));
