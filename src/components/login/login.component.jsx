@@ -3,7 +3,7 @@ import { Form, Row } from "react-bootstrap";
 import { Grid, Link } from "@material-ui/core";
 import { useFormFields } from "../../libs/hooksLibs";
 import "./login.styles.scss";
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../redux/user/user.action";
@@ -29,10 +29,28 @@ function Login(props) {
 				email: newUser.signInUserSession.idToken.payload.email
 			};
 			dispatch(setCurrentUser(user));
+			createUser(user)
 			props.history.push("/");
 		} catch (err) {
 			handleErrorMessage(err.message);
 			// setIsLoading(false);
+		}
+	}
+
+	const createUser = async (user) => {
+		console.log(user)
+		try {
+			const currentUser = await API.get('users', '/users');
+			if (!currentUser.length) {
+				const userA = await API.post('users','/users', {
+					body: {
+						userName: 'Varan',
+						userEmail: user.email
+					}
+				})
+			}
+		} catch (err) {
+			console.log(err)
 		}
 	}
 
