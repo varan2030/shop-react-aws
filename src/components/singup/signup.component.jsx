@@ -29,9 +29,11 @@ function Signup(props) {
 			try {
 				const newUser = await Auth.signUp({
 					username: fields.email,
-					password: fields.password
+					password: fields.password,
+					userName: fields.name
 				});
 				setNewUser(newUser);
+				console.log(newUser);
 				await createUser({
 					userName: fields.name,
 					userEmail: fields.email
