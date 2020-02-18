@@ -11,7 +11,8 @@ import NotFound from "./pages/not-found/not-found-page.component";
 import RestorePasswordPage from "./pages/restore-password-page/restore-password-page.component";
 import CartPage from "./pages/cart-page/cart-page.component";
 import AccountPage from "./pages/account-page/account-page.component";
-import SellerPage from "./pages/seller-page/seller-page.component";
+import InputItemPage from "./pages/input-item-page/input-item-page.component";
+import StaffToolPage from "./pages/staff-tool-page/staff-tool-page.component";
 
 export default function Routes({ user, ...props }) {
 	let isAuthenticated = false;
@@ -51,8 +52,14 @@ export default function Routes({ user, ...props }) {
 			/>
 			<Route
 				exact
-				path="/seller"
-				component={SellerPage}
+				path="/input-item"
+				component={InputItemPage}
+				// appProps={{ isAuthenticated }}
+			/>
+			<Route
+				exact
+				path="/staff-tool"
+				component={StaffToolPage}
 				// appProps={{ isAuthenticated }}
 			/>
 			<Route component={NotFound} />
