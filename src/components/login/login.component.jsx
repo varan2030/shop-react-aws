@@ -42,7 +42,7 @@ function Login(props) {
 		try {
 			const currentUser = await API.get('users', '/users');
 			if (!currentUser.length) {
-				const userA = await API.post('users','/users', {
+				await API.post('users','/users', {
 					body: {
 						userName: 'Varan',
 						userEmail: user.email
