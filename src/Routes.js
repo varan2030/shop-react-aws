@@ -13,6 +13,9 @@ import CartPage from "./pages/cart-page/cart-page.component";
 import AccountPage from "./pages/account-page/account-page.component";
 import InputItemPage from "./pages/input-item-page/input-item-page.component";
 import StaffToolPage from "./pages/staff-tool-page/staff-tool-page.component";
+import DirectoryPage from "./pages/directory-page/directory-page.component";
+import CollectionPage from "./pages/collection-page/collection-page.component";
+import CategoryPage from "./pages/category-page/category-page.component";
 
 export default function Routes({ user, ...props }) {
 	let isAuthenticated = false;
@@ -49,6 +52,21 @@ export default function Routes({ user, ...props }) {
 				path="/account"
 				component={AccountPage}
 				appProps={{ isAuthenticated }}
+			/>
+			<Route
+				exact
+				path="/:directory"
+				component={DirectoryPage}
+			/>
+			<Route
+				exact
+				path="/:directory/:category"
+				component={CategoryPage}
+			/>
+			<Route
+				exact
+				path="/:directory/:category/:collection/"
+				component={CollectionPage}
 			/>
 			<Route
 				exact
