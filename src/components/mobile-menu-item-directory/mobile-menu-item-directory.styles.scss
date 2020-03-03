@@ -1,0 +1,23 @@
+.content {
+    height: 600px;
+    width: 400px;
+    padding: 20px 0 0 30px;
+    .MuiTreeItem-label {
+        margin-left: 10px;
+    }
+}
+
+li.tree-item-directory {
+    padding: 12px;
+    // border-top: solid 1px;
+}
+
+.close-button-content {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+#close-button {
+    cursor: pointer;
+}

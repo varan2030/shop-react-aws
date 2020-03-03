@@ -1,9 +1,9 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
 
-import './directory.styles.scss';
+import './directory-subtitle.styles.scss';
 
-function Directory(props) {
+function DirectorySubtitle(props) {
     const directoryHeader = props.location.pathname.split('/');
     let header = "FABI"
     if (["login", "signup", "account", "cart"].find(item => item === directoryHeader[1])) {
@@ -15,4 +15,4 @@ function Directory(props) {
     </Paper>)
 }
 
-export default Directory;
+export default DirectorySubtitle;
